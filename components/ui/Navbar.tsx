@@ -4,7 +4,8 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <header className="w-full bg-white border-b shadow-sm">
+    <header className="sticky top-0 z-50 w-full backdrop-blur-md bg-white/70 border-b border-gray-200">
+
       <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
 
         {/* Logo */}
@@ -41,7 +42,7 @@ export default function Navbar() {
           {/* CTA BUTTON */}
           <Link
             href="/post-job"
-            className="px-6 py-2 rounded-lg text-white font-semibold shadow-md hover:shadow-lg transition hover:opacity-90"
+            className="px-6 py-2 rounded-lg text-white font-semibold transition hover:opacity-90"
             style={{ backgroundColor: "#4F46E5" }}
           >
             Post a Job

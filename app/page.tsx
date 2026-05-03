@@ -55,6 +55,29 @@ export default function Hero() {
 
         </div>
 
+       {/* STATS SECTION */}
+       <div className="mt-14 flex flex-col md:flex-row items-center justify-center gap-10">
+
+  <div className="text-center">
+    <h3 className="text-4xl font-bold text-[#4F46E5]">500+</h3>
+    <p className="text-gray-500 mt-1">Active Jobs</p>
+  </div>
+
+  <div className="hidden md:block w-px h-10 bg-gray-200"></div>
+
+  <div className="text-center">
+    <h3 className="text-4xl font-bold text-[#4F46E5]">200+</h3>
+    <p className="text-gray-500 mt-1">Companies</p>
+  </div>
+
+  <div className="hidden md:block w-px h-10 bg-gray-200"></div>
+
+  <div className="text-center">
+    <h3 className="text-4xl font-bold text-[#4F46E5]">50K+</h3>
+    <p className="text-gray-500 mt-1">Placements</p>
+  </div>
+
+</div>
       </div>
     </section>
   );
