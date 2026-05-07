@@ -1,172 +1,82 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  BriefcaseBusiness,
-  FileText,
-} from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { setAdminLoggedIn } from "@/lib/useIsAdmin";
 
-import { getJobs } from "@/services/jobs.service";
-import { getApplications } from "@/services/applications.service";
+const ADMIN_EMAIL = "admin@jobportal.com";
+const ADMIN_PASSWORD = "admin123";
 
-export default function DashboardPage() {
-  const [jobs, setJobs] = useState<any[]>([]);
-  const [applications, setApplications] =
-    useState<any[]>([]);
+export default function AdminLoginPage() {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  // 🔥 FETCH DATA
   useEffect(() => {
-    fetchDashboard();
-  }, []);
+    if (
+      typeof window !== "undefined" &&
+      window.localStorage.getItem("isAdmin") === "true"
+    ) {
+      router.replace("/admin/jobs");
+    }
+  }, [router]);
 
-  const fetchDashboard = async () => {
-    const { data: jobsData } = await getJobs();
-
-    const { data: appsData } =
-      await getApplications();
-
-    if (jobsData) setJobs(jobsData);
-
-    if (appsData) setApplications(appsData);
+  const handleLogin = () => {
+    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+      setAdminLoggedIn(true);
+      router.push("/admin/jobs");
+    } else {
+      setError("Email yoki parol noto'g'ri");
+    }
   };
 
   return (
-    <div>
-
-      {/* HEADER */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold">
-          Dashboard
-        </h1>
-
-        <p className="text-gray-500 mt-2">
-          Welcome back 👋
-        </p>
-      </div>
-
-      {/* STATS */}
-      <div className="grid md:grid-cols-2 gap-6 mb-10">
-
-        {/* JOBS */}
-        <div className="bg-white p-6 rounded-2xl shadow">
-
-          <div className="flex items-center justify-between">
-
-            <div>
-              <p className="text-gray-500">
-                Total Jobs
-              </p>
-
-              <h2 className="text-4xl font-bold mt-2">
-                {jobs.length}
-              </h2>
-            </div>
-
-            <div className="w-14 h-14 rounded-xl bg-indigo-100 flex items-center justify-center">
-              <BriefcaseBusiness
-                className="text-indigo-600"
-                size={28}
-              />
-            </div>
-
+    <div className="flex min-h-screen items-center justify-center bg-gray-100">
+      <div className="w-full max-w-md rounded-xl bg-white p-8 shadow-md">
+        <div className="mb-6 flex flex-col items-center">
+          <div className="mb-2 flex h-10 w-10 items-center justify-center rounded bg-blue-900 font-bold text-white">
+            JP
           </div>
+          <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+          <p className="text-sm text-gray-500">Sign in to manage job postings</p>
         </div>
 
-        {/* APPLICATIONS */}
-        <div className="bg-white p-6 rounded-2xl shadow">
-
-          <div className="flex items-center justify-between">
-
-            <div>
-              <p className="text-gray-500">
-                Applications
-              </p>
-
-              <h2 className="text-4xl font-bold mt-2">
-                {applications.length}
-              </h2>
-            </div>
-
-            <div className="w-14 h-14 rounded-xl bg-green-100 flex items-center justify-center">
-              <FileText
-                className="text-green-600"
-                size={28}
-              />
-            </div>
-
+        <div className="flex flex-col gap-4">
+          <div>
+            <label className="text-sm font-medium">Email</label>
+            <Input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="admin@jobportal.com"
+              type="email"
+              className="mt-1"
+            />
           </div>
+          <div>
+            <label className="text-sm font-medium">Password</label>
+            <Input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
+              type="password"
+              className="mt-1"
+            />
+          </div>
+          {error ? <p className="text-sm text-red-500">{error}</p> : null}
+          <Button onClick={handleLogin} className="w-full bg-blue-900 hover:bg-blue-800">
+            Sign In
+          </Button>
         </div>
 
-      </div>
-
-      {/* RECENT JOBS */}
-      <div className="bg-white rounded-2xl shadow p-6 mb-8">
-
-        <h2 className="text-xl font-semibold mb-5">
-          Recent Jobs
-        </h2>
-
-        <div className="space-y-4">
-
-          {jobs.slice(0, 5).map((job) => (
-            <div
-              key={job.id}
-              className="flex items-center justify-between border-b pb-4"
-            >
-              <div>
-                <h3 className="font-semibold">
-                  {job.title}
-                </h3>
-
-                <p className="text-gray-500 text-sm">
-                  {job.company}
-                </p>
-              </div>
-
-              <span className="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">
-                {job.type}
-              </span>
-            </div>
-          ))}
-
+        <div className="mt-4 rounded bg-gray-100 p-3 text-sm text-gray-600">
+          <p className="font-semibold">Demo Credentials:</p>
+          <p>Email: admin@jobportal.com</p>
+          <p>Password: admin123</p>
         </div>
       </div>
-
-      {/* RECENT APPLICATIONS */}
-      <div className="bg-white rounded-2xl shadow p-6">
-
-        <h2 className="text-xl font-semibold mb-5">
-          Recent Applications
-        </h2>
-
-        <div className="space-y-4">
-
-          {applications.slice(0, 5).map((app) => (
-            <div
-              key={app.id}
-              className="flex items-center justify-between border-b pb-4"
-            >
-              <div>
-                <h3 className="font-semibold">
-                  {app.name}
-                </h3>
-
-                <p className="text-gray-500 text-sm">
-                  {app.email}
-                </p>
-              </div>
-
-              <span className="text-sm text-gray-400">
-                {new Date(
-                  app.created_at
-                ).toLocaleDateString()}
-              </span>
-            </div>
-          ))}
-
-        </div>
-      </div>
-
     </div>
   );
 }

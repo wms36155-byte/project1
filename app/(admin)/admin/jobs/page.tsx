@@ -1,128 +1,136 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
-import { getJobById, updateJob } from "@/services/jobs.service";
+import { useRouter } from "next/navigation";
+import AdminSidebar from "@/components/admin/AdminSidebar";
+import {
+  deleteJob,
+  getJobs,
+  type SampleJob,
+} from "@/app/jobs/sample-data";
 
-export default function EditJobPage() {
-  const { id } = useParams();
+export default function AdminJobsPage() {
   const router = useRouter();
+  const [jobs, setJobs] = useState<SampleJob[]>([]);
+  const [hydrated, setHydrated] = useState(false);
 
-  const [loading, setLoading] = useState(true);
-
-  const [form, setForm] = useState({
-    title: "",
-    company: "",
-    location: "",
-    salary: "",
-    category: "",
-    type: "",
-    description: "",
-  });
-
-  // 🔥 FETCH JOB
   useEffect(() => {
-    const fetchJob = async () => {
-      const { data } = await getJobById(Number(id));
+    setJobs(getJobs());
+    setHydrated(true);
+  }, []);
 
-      if (data) {
-        setForm(data);
-      }
-
-      setLoading(false);
-    };
-
-    if (id) fetchJob();
-  }, [id]);
-
-  // 🔥 HANDLE CHANGE
-  const handleChange = (e: any) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleDelete = (id: string) => {
+    const confirmed = confirm("Bu ishni o'chirmoqchimisiz?");
+    if (!confirmed) return;
+    setJobs(deleteJob(id));
   };
-
-  // 🔥 UPDATE
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-
-    await updateJob(Number(id), form);
-
-    alert("Updated!");
-    router.push("/admin/jobs");
-  };
-
-  if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="max-w-3xl">
-      <h1 className="text-2xl font-bold mb-4">
-        Edit Job
-      </h1>
+    <div className="flex min-h-screen bg-gray-50">
+      <AdminSidebar />
 
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-xl shadow space-y-4"
-      >
-        <input
-          name="title"
-          value={form.title}
-          onChange={handleChange}
-          className="w-full border p-2 rounded"
-        />
+      <main className="ml-60 flex-1 p-10">
+        <div className="mb-8 flex items-start justify-between gap-4">
+          <div>
+            <h1 className="mb-1 text-3xl font-extrabold text-gray-900">
+              Jobs Management
+            </h1>
+            <p className="text-sm text-gray-400">Manage all your job postings</p>
+          </div>
+          <button
+            type="button"
+            onClick={() => router.push("/admin/create-job")}
+            className="rounded-xl px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+            style={{ backgroundColor: "#1e3a6e" }}
+          >
+            + Create New Job
+          </button>
+        </div>
 
-        <input
-          name="company"
-          value={form.company}
-          onChange={handleChange}
-          className="w-full border p-2 rounded"
-        />
+        <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+          <div className="flex items-center justify-between border-b border-gray-100 px-6 py-4">
+            <h2 className="text-lg font-bold text-gray-900">
+              All Jobs ({jobs.length})
+            </h2>
+          </div>
 
-        <input
-          name="location"
-          value={form.location}
-          onChange={handleChange}
-          className="w-full border p-2 rounded"
-        />
-
-        <input
-          name="salary"
-          value={form.salary}
-          onChange={handleChange}
-          className="w-full border p-2 rounded"
-        />
-
-        <select
-          name="category"
-          value={form.category}
-          onChange={handleChange}
-          className="w-full border p-2 rounded"
-        >
-          <option>Technology</option>
-          <option>Design</option>
-          <option>Marketing</option>
-        </select>
-
-        <select
-          name="type"
-          value={form.type}
-          onChange={handleChange}
-          className="w-full border p-2 rounded"
-        >
-          <option>Full-time</option>
-          <option>Part-time</option>
-          <option>Remote</option>
-        </select>
-
-        <textarea
-          name="description"
-          value={form.description}
-          onChange={handleChange}
-          className="w-full border p-2 rounded"
-        />
-
-        <button className="bg-indigo-600 text-white px-4 py-2 rounded">
-          Save Changes
-        </button>
-      </form>
+          {!hydrated ? (
+            <div className="py-16 text-center text-gray-400">Loading...</div>
+          ) : jobs.length === 0 ? (
+            <div className="py-16 text-center">
+              <p className="text-gray-400">
+                No jobs yet. Click &quot;Create New Job&quot; to add one.
+              </p>
+            </div>
+          ) : (
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-gray-100 bg-gray-50">
+                  <th className="px-6 py-4 text-left font-bold text-gray-900">
+                    Title
+                  </th>
+                  <th className="px-6 py-4 text-left font-bold text-gray-900">
+                    Company
+                  </th>
+                  <th className="px-6 py-4 text-left font-bold text-gray-900">
+                    Category
+                  </th>
+                  <th className="px-6 py-4 text-left font-bold text-gray-900">
+                    Type
+                  </th>
+                  <th className="px-6 py-4 text-right font-bold text-gray-900">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {jobs.map((job) => (
+                  <tr
+                    key={job.id}
+                    className="border-b border-gray-50 transition-colors hover:bg-gray-50"
+                  >
+                    <td className="px-6 py-4">
+                      <div className="font-semibold text-gray-900">
+                        {job.title}
+                      </div>
+                      <div className="mt-0.5 text-xs text-gray-500">
+                        {job.location}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 text-gray-700">{job.company}</td>
+                    <td className="px-6 py-4">
+                      <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700">
+                        {job.category}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className="rounded-full border border-gray-200 px-3 py-1 text-xs font-medium text-gray-700">
+                        {job.type}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 text-right">
+                      <button
+                        type="button"
+                        onClick={() => router.push(`/jobs/${job.id}`)}
+                        className="mr-3 text-sm font-medium text-gray-600 transition-colors hover:text-gray-900"
+                      >
+                        View
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleDelete(job.id)}
+                        className="rounded-md bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-700 transition-colors hover:bg-red-100"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+      </main>
     </div>
   );
 }

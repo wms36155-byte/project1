@@ -1,11 +1,21 @@
-import Navbar from "@/components/ui/Navbar";
-import Hero from "@/components/ui/Hero";
+import Navbar from "@/components/Navbar";
+import HeroSection from "@/components/HeroSection";
+import WhyChooseUs from "@/components/WhyChooseUs";
+import StatsSection from "@/components/StatsSection";
+import CTASection from "@/components/CTASection";
+import Footer from "@/components/Footer";
 
-export default function Home() {
+const Home = () => {
   return (
-    <>
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
-      <Hero />
-    </>
+      <HeroSection />
+      <WhyChooseUs />
+      <StatsSection />
+      <CTASection />
+      <Footer />
+    </div>
   );
-}
+};
+
+export default Home;
