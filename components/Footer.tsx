@@ -44,8 +44,8 @@ export default function Footer() {
 					<div>
 						<h4 className='mb-3 font-semibold text-white'>Contact</h4>
 						<p className='text-sm'>
-							<a href='mailto:shahzod0804@gmail.com' className='transition-colors hover:text-white'>
-								shahzod0804@gmail.com
+							<a href='mailto:@gmail.com' className='transition-colors hover:text-white'>
+								aminovamadinabonu@gmail.com
 							</a>
 						</p>
 					</div>
@@ -54,11 +54,11 @@ export default function Footer() {
 				<div className='border-t border-gray-700 pt-6 text-center text-sm text-gray-500'>
 					© 2026 JobPortal. All rights reserved by{' '}
 					<a
-						href='https://t.me/Shahzod_Qosimov'
+						href='https://t.me/AmiraAminova'
 						target='_blank'
 						rel='noopener noreferrer'
 						className='hover:text-white transition-colors'>
-						@Shahzod_Qosimov
+						@AmiraAminova
 					</a>
 				</div>
 			</div>
