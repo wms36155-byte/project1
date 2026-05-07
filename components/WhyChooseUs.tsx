@@ -27,29 +27,53 @@ const features = [
 
 export default function WhyChooseUs() {
   return (
-    <section className="bg-gray-50 px-4 py-20">
-      <div className="mx-auto max-w-5xl">
-        <div className="mb-14 text-center">
-          <h2 className="mb-4 text-5xl font-extrabold text-gray-900">
-            Why Choose JobPortal?
+    <section className="relative overflow-hidden bg-gradient-to-b from-violet-50 via-white to-fuchsia-50 px-4 py-24">
+      
+      {/* Background Glow */}
+      <div className="absolute left-[-120px] top-[-120px] h-80 w-80 rounded-full bg-violet-300/20 blur-3xl" />
+      <div className="absolute bottom-[-120px] right-[-120px] h-80 w-80 rounded-full bg-fuchsia-300/20 blur-3xl" />
+
+      <div className="relative mx-auto max-w-6xl">
+        
+        {/* Header */}
+        <div className="mb-16 text-center">
+          <p className="mb-3 text-sm font-bold uppercase tracking-[0.25em] text-violet-600">
+            Why Choose Us
+          </p>
+
+          <h2 className="mb-5 text-5xl font-extrabold leading-tight text-gray-900">
+            Why Choose{" "}
+            <span className="bg-gradient-to-r from-violet-700 to-fuchsia-600 bg-clip-text text-transparent">
+              JobPortal?
+            </span>
           </h2>
-          <p className="mx-auto max-w-xl text-base leading-relaxed text-gray-500">
+
+          <p className="mx-auto max-w-2xl text-base leading-relaxed text-gray-600">
             We&apos;ve designed the most intuitive job search platform to help
-            you find opportunities that align with your career goals.
+            you discover opportunities that perfectly align with your career
+            goals and ambitions.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        {/* Features */}
+        <div className="grid grid-cols-1 gap-7 sm:grid-cols-2">
           {features.map((feature, index) => (
             <div
               key={index}
-              className="rounded-2xl border border-gray-200 bg-white p-8"
+              className="group rounded-3xl border border-violet-100 bg-white/80 p-8 shadow-sm backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
             >
-              <div className="mb-4 text-4xl">{feature.icon}</div>
-              <h3 className="mb-2 text-xl font-bold text-gray-900">
+              {/* Icon */}
+              <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-100 to-fuchsia-100 text-4xl shadow-sm transition-transform duration-300 group-hover:scale-110">
+                {feature.icon}
+              </div>
+
+              {/* Title */}
+              <h3 className="mb-3 text-2xl font-bold text-gray-900 transition-colors duration-300 group-hover:text-violet-700">
                 {feature.title}
               </h3>
-              <p className="text-sm leading-relaxed text-gray-500">
+
+              {/* Description */}
+              <p className="text-sm leading-relaxed text-gray-600">
                 {feature.description}
               </p>
             </div>

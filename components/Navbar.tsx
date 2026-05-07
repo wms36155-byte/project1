@@ -8,34 +8,44 @@ function Navbar() {
   const { isAdmin, hydrated } = useIsAdmin();
 
   return (
-    <nav className="flex items-center justify-between border-b border-gray-200 bg-white px-8 py-4">
-      <div className="flex items-center gap-2">
-        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-900 text-sm font-bold text-white">
-          JP
-        </div>
-        <span className="text-lg font-bold text-gray-900">JobPortal</span>
-      </div>
+    <nav className="sticky top-0 z-50 border-b border-violet-100 bg-white/80 px-8 py-4 backdrop-blur-md">
+      <div className="mx-auto flex max-w-7xl items-center justify-between">
+        
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-violet-700 to-fuchsia-600 text-sm font-bold text-white shadow-md">
+            JP
+          </div>
 
-      <div className="flex items-center gap-8">
-        <Link
-          href="/"
-          className="font-medium text-gray-600 hover:text-gray-900"
-        >
-          Home
+          <span className="text-xl font-extrabold tracking-tight text-gray-900">
+            JobPortal
+          </span>
         </Link>
-        <Link
-          href="/jobs"
-          className="font-medium text-gray-700 transition-colors hover:text-blue-900"
-        >
-          Jobs
-        </Link>
-        {hydrated && isAdmin ? (
-          <Link href="/admin/create-job">
-            <Button className="bg-blue-900 px-5 text-white hover:bg-blue-800">
-              Post a Job
-            </Button>
+
+        {/* Navigation */}
+        <div className="flex items-center gap-8">
+          <Link
+            href="/"
+            className="font-medium text-gray-600 transition-colors duration-300 hover:text-violet-700"
+          >
+            Home
           </Link>
-        ) : null}
+
+          <Link
+            href="/jobs"
+            className="font-medium text-gray-600 transition-colors duration-300 hover:text-violet-700"
+          >
+            Jobs
+          </Link>
+
+          {hydrated && isAdmin ? (
+            <Link href="/admin/create-job">
+              <Button className="rounded-xl bg-violet-700 px-5 text-white shadow-sm transition-all duration-300 hover:bg-violet-800 hover:shadow-md">
+                Post a Job
+              </Button>
+            </Link>
+          ) : null}
+        </div>
       </div>
     </nav>
   );
