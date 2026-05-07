@@ -9,7 +9,7 @@ export default function JobTable() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // 🔥 FETCH JOBS
+  //  FETCH JOBS
   const fetchJobs = async () => {
     const { data, error } = await getJobs();
 
@@ -24,7 +24,7 @@ export default function JobTable() {
     fetchJobs();
   }, []);
 
-  // ❌ DELETE
+  //  DELETE
   const handleDelete = async (id: number) => {
     const confirmDelete = confirm("Delete this job?");
     if (!confirmDelete) return;

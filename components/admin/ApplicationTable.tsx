@@ -7,7 +7,7 @@ export default function ApplicationTable() {
   const [applications, setApplications] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // 🔥 FETCH
+  //  FETCH
   const fetchApplications = async () => {
     const { data, error } = await getApplications();
 
@@ -22,7 +22,7 @@ export default function ApplicationTable() {
     fetchApplications();
   }, []);
 
-  // ❌ DELETE
+  //  DELETE
   const handleDelete = async (id: number) => {
     const confirmDelete = confirm(
       "Delete this application?"

@@ -6,8 +6,8 @@ export default function HomePage() {
       <section className="min-h-[85vh] bg-gradient-to-b from-white via-[#F8FAFF] to-[#EEF2FF] flex items-center justify-center px-6">
         <div className="text-center max-w-3xl">
 
-          <p className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-indigo-50 text-indigo-600 text-sm font-medium mb-6 shadow-sm">
-            🚀 CAREER OPPORTUNITIES
+          <p className="inline-flex items-center gap-2 px-5 py-2 rounded-full  text-orange-500  font-medium mb-6 shadow-sm">
+             CAREER OPPORTUNITIES
           </p>
 
           <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight tracking-tight">
