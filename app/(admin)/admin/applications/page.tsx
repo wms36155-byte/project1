@@ -1,11 +1,12 @@
-"use client";
-
-import ApplicationTable from "../../components/ApplicationTable";
+import ApplicationTable from "@/components/admin/ApplicationTable";
 
 export default function ApplicationsPage() {
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-6">Applications</h1>
+      <h1 className="text-2xl font-bold mb-4">
+        Applications
+      </h1>
+
       <ApplicationTable />
     </div>
   );

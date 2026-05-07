@@ -26,7 +26,7 @@ export default function Navbar() {
         <nav className="flex items-center gap-10 font-semibold text-lg">
 
           <Link
-            href="/"
+            href="/" 
             className="text-gray-500 hover:text-[#4F46E5] transition"
           >
             Home

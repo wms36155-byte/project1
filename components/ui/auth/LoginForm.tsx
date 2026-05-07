@@ -31,7 +31,7 @@ export default function LoginForm() {
         email: data.user.email ?? "",
       });
 
-      router.push("/dashboard");
+      router.push("/admin");
     }
   };
 
@@ -77,10 +77,7 @@ export default function LoginForm() {
           {loading ? "Loading..." : "Login"}
         </button>
 
-        {/* FOOTER */}
-        <p className="text-center text-xs text-gray-400 mt-5">
-          Powered by Supabase
-        </p>
+        
 
       </div>
     </div>
